@@ -21,8 +21,8 @@ class LoginPage extends State<Login> {
           child: ListView(
             children: <Widget>[
               Image.asset(
-                "Images/eagle.png", 
-                height: 100,
+                "resources/eagle.png", 
+                height: 150,
                 width: 100,
               ),
               TextFormField(
