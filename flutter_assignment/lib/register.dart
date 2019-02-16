@@ -8,11 +8,16 @@ class Register extends StatefulWidget{
 }
 
 class RegisterPage extends State<Register>{
+  String id;
+  String pass;
+  String pass2;
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title : Text("REGISTER", style: TextStyle(color: Colors.white),),
         centerTitle: true,
@@ -29,13 +34,8 @@ class RegisterPage extends State<Register>{
                   hintText: 'Email'
                 ),
                 keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "กรุณาระบุข้อมูลให้ครบถ้วน";
-                  }
-                  if (value.toLowerCase() == 'admin') {
-                    return 'user นี้มีอยู่ในระบบแล้ว';
-                  }
+                onSaved: (value) {
+                  id = value;
                 },
               ),
               TextFormField(
@@ -45,10 +45,8 @@ class RegisterPage extends State<Register>{
                 ),
                 keyboardType: TextInputType.text,
                 obscureText: true,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "กรุณาระบุข้อมูลให้ครบถ้วน";
-                  }
+                onSaved: (value) {
+                  pass = value;
                 },
               ),
               TextFormField(
@@ -58,23 +56,26 @@ class RegisterPage extends State<Register>{
                 ),
                 keyboardType: TextInputType.text,
                 obscureText: true,
-                onSaved: (value) => print(value),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "กรุณาระบุข้อมูลให้ครบถ้วน";
-                  }
+                onSaved: (value) {
+                  pass2 = value;
                 },
-                
               ),
               RaisedButton(
                   color: Theme.of(context).primaryColor,
                   textColor: Colors.white,
                   child: Text("CONTINUE"),
                   onPressed: () {
-                    if(_formKey.currentState.validate()){
-                      Navigator.pushNamed(context, '/Login');
-                    }
-                  },
+                          _formKey.currentState.save();
+                          if (id == '' || pass == '' || pass2 == '') {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('กรุณาระบุข้อมูลให้ครบถ้วน'), backgroundColor: Colors.blue));
+                          }
+                          if (id == 'admin') {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('user นี้มีอยู่ในระบบแล้ว'),backgroundColor: Colors.blue));
+                          }
+                          if (id != '' && id != 'admin' && pass != '' && pass2 != '') {
+                            Navigator.pushNamed(context, '/Login');
+                          }
+                        },
                 )
             ],
           ),

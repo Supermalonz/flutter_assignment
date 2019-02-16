@@ -10,10 +10,14 @@ class Login extends StatefulWidget{
 }
 
 class LoginPage extends State<Login> {
+  String id;
+  String pass;
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: _scaffoldKey,
       body: new Container(
         padding:EdgeInsets.all(25),
         child:Form(
@@ -32,13 +36,8 @@ class LoginPage extends State<Login> {
                   hintText: "User Id",
                 ),
                 keyboardType: TextInputType.emailAddress,
-                onSaved: (value) => print(value),
-                validator: (value){
-                  if (value.isEmpty) {
-                    return "กรุณาระบุ user or password";
-                  }
-                  if (value != 'admin')
-                    return 'user or password ไม่ถูกต้อง';
+                onSaved: (value) {
+                  id = value;
                 },
               ),
               TextFormField(
@@ -49,13 +48,8 @@ class LoginPage extends State<Login> {
                 ),
                 obscureText: true,
                 keyboardType: TextInputType.text,
-                onSaved: (value) => print(value),
-                validator: (value){
-                  if (value.isEmpty) {
-                    return "กรุณาระบุ user or password";
-                  }
-                  if (value != 'admin') 
-                    return 'user or password ไม่ถูกต้อง';
+                onSaved: (value) {
+                  pass = value;
                 },
               ),
               RaisedButton(
@@ -63,12 +57,18 @@ class LoginPage extends State<Login> {
                   textColor: Colors.white,
                   child: Text("Login"),
                   onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Menu()));
-                    }
-                  },
+                      _formKey.currentState.save();
+                      if (id == '' || pass == '') {
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('กรุณาระบุ user or password'), backgroundColor: Colors.blue));
+                      } 
+                      else if (id == 'admin' && pass == 'admin') {
+                        Navigator.pushNamed(context, '/Menu');
+                      } 
+                      else {
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('user or password ไม่ถูกต้อง'), backgroundColor: Colors.blue));
+                      }
+                    },
                 ),
-              
                Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
