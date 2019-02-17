@@ -65,7 +65,7 @@ class RegisterPage extends State<Register>{
                     _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('user นี้มีอยู่ในระบบแล้ว'),backgroundColor: Colors.blue));
                   }
                   if (id.isNotEmpty && id != 'admin' && pass.isNotEmpty && pass2.isNotEmpty) {
-                    Navigator.pushNamed(context, '/Login');
+                    Navigator.pop(context);
                   }
                   }
                 )

@@ -14,10 +14,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue
       ),
-      home: new Scaffold(
-        body: Login()
-      ),
+      initialRoute: '/',
       routes: {
+        '/' : (context) => Login(),
         '/Menu' : (context) => Menu(),
         '/Login' : (context) => Login(),
         '/Register' : (context) => Register()
