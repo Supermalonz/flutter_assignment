@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'register.dart';
-import 'menu.dart';
 
 class Login extends StatefulWidget{
   @override
@@ -30,22 +29,14 @@ class LoginPage extends State<Login> {
                 width: 100,
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.person),
-                  // labelText: "Email",
-                  hintText: "User Id",
-                ),
+                decoration: InputDecoration(icon: Icon(Icons.person), hintText: "User Id"),
                 keyboardType: TextInputType.emailAddress,
                 onSaved: (value) {
                   id = value;
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  // labelText: "Password",
-                  icon: Icon(Icons.lock),
-                  hintText: "Password",
-                ),
+                decoration: InputDecoration(icon: Icon(Icons.lock), hintText: "Password"),
                 obscureText: true,
                 keyboardType: TextInputType.text,
                 onSaved: (value) {
@@ -53,15 +44,16 @@ class LoginPage extends State<Login> {
                 },
               ),
               RaisedButton(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).accentColor,
+                  splashColor: Colors.blueGrey,
                   textColor: Colors.white,
                   child: Text("Login"),
                   onPressed: () {
                       _formKey.currentState.save();
-                      if (id == '' || pass == '') {
+                      if (id.isEmpty || pass.isEmpty) {
                         _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('กรุณาระบุ user or password'), backgroundColor: Colors.blue));
                       } 
-                      else if (id == 'admin' && pass == 'admin') {
+                      if (id == 'admin' && pass == 'admin') {
                         Navigator.pushNamed(context, '/Menu');
                       } 
                       else {

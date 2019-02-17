@@ -19,7 +19,7 @@ class RegisterPage extends State<Register>{
     return new Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title : Text("REGISTER", style: TextStyle(color: Colors.white),),
+        title : Text('REGISTER', style: TextStyle(color: Colors.white, fontSize: 16)),
         centerTitle: true,
       ),
       body: new Container(
@@ -29,20 +29,14 @@ class RegisterPage extends State<Register>{
           child: ListView(
             children: <Widget>[
               TextFormField(
-                decoration : InputDecoration(
-                  icon: Icon(Icons.mail),
-                  hintText: 'Email'
-                ),
+                decoration : InputDecoration(icon: Icon(Icons.mail),hintText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
                 onSaved: (value) {
                   id = value;
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.lock),
-                  hintText: "Password",
-                ),
+                decoration: InputDecoration(icon: Icon(Icons.lock),hintText: 'Password'),
                 keyboardType: TextInputType.text,
                 obscureText: true,
                 onSaved: (value) {
@@ -50,10 +44,7 @@ class RegisterPage extends State<Register>{
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.lock),
-                  hintText: "Confirm Password",
-                ),
+                decoration: InputDecoration(icon: Icon(Icons.lock),hintText: 'Confirm Password'),
                 keyboardType: TextInputType.text,
                 obscureText: true,
                 onSaved: (value) {
@@ -61,21 +52,22 @@ class RegisterPage extends State<Register>{
                 },
               ),
               RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
-                  child: Text("CONTINUE"),
-                  onPressed: () {
-                          _formKey.currentState.save();
-                          if (id == '' || pass == '' || pass2 == '') {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('กรุณาระบุข้อมูลให้ครบถ้วน'), backgroundColor: Colors.blue));
-                          }
-                          if (id == 'admin') {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('user นี้มีอยู่ในระบบแล้ว'),backgroundColor: Colors.blue));
-                          }
-                          if (id != '' && id != 'admin' && pass != '' && pass2 != '') {
-                            Navigator.pushNamed(context, '/Login');
-                          }
-                        },
+                color: Theme.of(context).accentColor,
+                splashColor: Colors.blueGrey,
+                textColor: Colors.white,
+                child: Text('CONTINUE'),
+                onPressed: () {
+                  _formKey.currentState.save();
+                  if (id.isEmpty || pass.isEmpty || pass2.isEmpty) {
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('กรุณาระบุข้อมูลให้ครบถ้วน'), backgroundColor: Colors.blue));
+                  }
+                  if (id == 'admin') {
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('user นี้มีอยู่ในระบบแล้ว'),backgroundColor: Colors.blue));
+                  }
+                  if (id.isNotEmpty && id != 'admin' && pass.isNotEmpty && pass2.isNotEmpty) {
+                    Navigator.pushNamed(context, '/Login');
+                  }
+                  }
                 )
             ],
           ),

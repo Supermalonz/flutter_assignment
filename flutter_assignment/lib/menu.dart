@@ -22,19 +22,11 @@ class MenuHome extends State<Menu>{
           bottomNavigationBar: new TabBar(
             labelColor: Colors.white,
             tabs: <Widget>[
-              new Tab(
-                icon: Icon(Icons.view_compact)
-                ),
-              new Tab(
-                icon: Icon(Icons.notifications)
-              ),
-              new Tab(icon: Icon(Icons.explore)
-              ),
-              new Tab(
-                icon: Icon(Icons.person)
-              ),
-              new Tab(icon: Icon(Icons.settings)
-              )
+              new Tab(icon: Icon(Icons.view_compact)),
+              new Tab(icon: Icon(Icons.notifications)),
+              new Tab(icon: Icon(Icons.explore)),
+              new Tab(icon: Icon(Icons.person)),
+              new Tab(icon: Icon(Icons.settings))
             ],
           ),
           
